@@ -1,20 +1,23 @@
 # Linux-document
 
 ## Filesystem Layout
-* Executables in **/bin, /usr/bin**
-* System executables under **/sbin, /usr/sbin**
-* Device nodes under **/dev**
-*  Config files under **/etc**
-* Home directories under **/home, also /root**
-* Temporary files under **/tmp**. Often wiped at reboot.
-> * Magic dirs under **/proc, /sys**
-* Libraries under **/lib, /usr/lib**, sometimes **lib64** too
-* Boot files under **/boot**
-* User and secondary files under **/usr**. Historically only files needed for boot were directly under **/**, stuff that can be shared over network (or stored on a second drive if your first drive was too small) would be under **/usr**
-* Commercial software / pre-packaged software under **/opt**
-* Server storage and other data **/srv, /run, /var** programs store data
-* Default places to mount media (memory keys, CD-Roms, etc.) **/media, /mnt**
-* If the disk checker finds lost files when fixing a disk after unclean shutdown it may put the files in **/lost+found**
+
+| Dir     | Descriptions                                                                                                                                             |
+| :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| /       | This is the root directory which should contain only the directories needed at the top level of the file structure                                       |
+| /bin    | This is where the executable files are located. These files are available to all users                                                                   |
+| /dev    | These are device drivers                                                                                                                                 |
+| /etc    | Supervisor directory commands, configuration files, disk configuration files, valid user lists, groups, ethernet, hosts, where to send critical messages |
+| /lib    | Contains shared library files and sometimes other kernel-related files                                                                                   |
+| /boot   | Contains files for booting the system                                                                                                                    |
+| /home   | Contains the home directory for users and other accounts                                                                                                 |
+| /mnt    | Used to mount other temporary file systems, such as cdrom and floppy for the CD-ROM drive and floppy diskette drive, respectively                        |
+| /proc   | Contains all processes marked as a file by process number or other information that is dynamic to the system                                             |
+| /tmp    | Holds temporary files used between system boots                                                                                                          |
+| /usr    | Used for miscellaneous purposes, and can be used by many users. Includes administrative commands, shared files, library files, and others                |
+| /var    | Typically contains variable-length files such as log and print files and any other type of file that may contain a variable amount of data               |
+| /sbin   | Contains binary (executable) files, usually for system administration. For example, fdisk and ifconfig utlities                                          |
+| /kernel | Contains kernel files                                                                                                                                    |
 
 ## Regular Expressions 
 * Summary:
@@ -54,6 +57,11 @@
 | `fg`                                                                                        | Move job to foreground.                                                                                           |
 | `echo $PATH`<br> `export PATH=$PATH:/usr/local/bin` <br> `export PATH=/usr/local/bin:$PATH` | Print PATH out <br>Add /usr/local/bin dir to the end of PATH <br>Add /usr/local/bin dir to the start of PATH <br> |
 | `scp -P xxx /path/of/your/local/files` <br> `(username@)remote_ip:/path/to/your/remote/dir` | Copy local files to remote server with port.                                                                      |
+| `df -k  `                                                                                   | Manage your partition space                                                                                       |
+| `du /dir/`                                                                                  | Show disk space usage on a particular directory.                                                                  |
+| `mount -t file_system_type device_to_mount directory_to_mount_to`                           | Mount file                                                                                                        |
+| `umount /dev/cdrom`                                                                         | Unmount file                                                                                                      |
+| `which <cmd>`                                                                               | Show the directory of a command                                                                                   |
 
 ## Software
 **sFTP**
@@ -92,6 +100,7 @@ Architech::
 ```sh
 SAMPLE PROGRAM::
 
+   #Shebang line
 #!/bin/sh                                                                     
    #Print string to terminal
 echo "What is your name?"
@@ -122,7 +131,7 @@ SPECIAL VARIABLE::
 for TOKEN in $*
 do
    echo $TOKEN
-      #Print exit status (0: Succesfull, 1: Unsuccesfull, others)
+      #Print exit status | excecution status (0: Succesfull, 1: Unsuccesfull, others)
    echo $?
 done
 ```
@@ -264,19 +273,19 @@ function_name () {
 * SED stands for strem editor
 * This stream-oriented editor was created exclusively for executing scripts.
 * Thus, all the input you feed into it passes through and gos to STDOUT and it does not change the input file.
-
-* Following is the general syntax for sed
+* Following is the general syntax for sed :
 ```sh
 /pattern/action
 ```
 * Here, pattern is a regular expression, and action is one of the commands given in the following table. If pattern is omitted, action is performed for every line as we have seen above. <br>
 * The slash character (/) that surrounds the pattern are required because they are used as delimiters.
-* 
-| Key                 | Descriptions                                               |
-| :------------------ | :--------------------------------------------------------- |
-| /patttern/p         | Prints the line                                            |
-| /pattern/d          | Deletes the line                                           |
-| s/pattern1/pattern2 | Substitutes the first occurrence of pattern1 with pattern2 |
+
+| Key                  | Descriptions                                               |
+| :------------------- | :--------------------------------------------------------- |
+| /patttern/p          | Prints the line                                            |
+| /pattern/d           | Deletes the line                                           |
+| sed -e 'd' /yourfile | Deletes all                                                |
+| s/pattern1/pattern2  | Substitutes the first occurrence of pattern1 with pattern2 |
 
 
 
@@ -320,13 +329,13 @@ sed 's!pattern1!pattern2!g' file_name
 ## Git
 * Change commit message with rebase:
 
-| Steps                                                             | Descriptions                                     |
-| :---------------------------------------------------------------- | :----------------------------------------------- |
-| `git rebase -i HEAD~~`                                            | Show all commit list.                            |
-| Replace `pick` with `word` in font of which one you want to edit. | Choose commit that you want to edit.             |
-| `git commit --amend`                                              | Edit your commit's details.                      |
-| `git rebase --continue`                                           | Do the edit to branch.                           |
-| `git push --force`                                                | Push on server and replace the commit's details. |
+| Steps                                                                     | Descriptions                                     |
+| :------------------------------------------------------------------------ | :----------------------------------------------- |
+| `git rebase -i HEAD~~`                                                    | Show all commit list.                            |
+| Replace `pick` with `word` in font of which commit that you want to edit. | Choose commit that you want to edit.             |
+| `git commit --amend`                                                      | Edit your commit's details.                      |
+| `git rebase --continue`                                                   | Do the edit to branch.                           |
+| `git push --force`                                                        | Push on server and replace the commit's details. |
 
 ## 4 thành phần của Embedded Linux
 **Toolchain :**
