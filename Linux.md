@@ -320,7 +320,7 @@ sed 's!pattern1!pattern2!g' file_name
 **Soft Link**
 * Just create a shortcut to source file.
 * If Source file's removed, current file's data will be lost.
-* Syntax : *ln -s <source-file_dir> <current-file_dir>*.
+* Syntax : `ln -s <source-file_dir> <current-file_dir>`.
 **Hard Link**
 * Create physic link to file.
 * If any file're removed, the number of hard linked file simply decrease by one.
@@ -363,7 +363,4 @@ sed 's!pattern1!pattern2!g' file_name
 * Kernel module
    * Là thành phần phần mềm được load động vào kernel đẻ chạy
    * Ứng dụng phổ biến của module là làm driver cho thiết bị.
-    * Dù đa số là mã nguồn mở, nhưng có một số module sử dụng kèm theo thiết bị lại ở dạng mã nguồn đóng, và chúng sẽ không được quản lý trên main stream --> #Cần chú ý khi sử dụng kernel module dạng này trong các sản phẩm thương mại.#
-. User-space application
-
-:
+    * Dù đa số là mã nguồn mở, nhưng có một số module sử dụng kèm theo thiết bị lại ở dạng mã nguồn đóng, và chúng sẽ không được quản lý trên main stream --> #Cần chú ý khi sử dụng kernel module dạng này trong các sản phẩm thương mại.
